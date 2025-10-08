@@ -1,0 +1,145 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Wrapper tổng */
+.admin-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar bên trái */
+.admin-sidebar {
+  width: 260px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu trong sidebar */
+.admin-menu {
+  padding: 0;
+}
+
+.menu-block .title {
+  padding: 25px 20px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-block ul {
+  list-style: none;
+  padding: 20px 0;
+}
+
+.menu-block li {
+  margin-bottom: 3px;
+}
+
+.menu-block .link {
+  display: block;
+  padding: 15px 20px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.menu-block .link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-left-color: #00ff88;
+  padding-left: 25px;
+}
+
+.menu-block .link.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-left-color: #00ff88;
+  font-weight: 600;
+}
+
+/* Nội dung chính bên phải */
+.admin-main {
+  flex: 1;
+  margin-left: 260px;
+  padding: 30px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Header trang */
+.page-header {
+  background: white;
+  padding: 25px 30px;
+  border-bottom: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Vùng nội dung */
+.content-area {
+  padding: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .admin-sidebar.show {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 10000;
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+}
+
+.menu-toggle {
+  display: none;
+}

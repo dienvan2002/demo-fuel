@@ -1,0 +1,230 @@
+/* Admin Tables Styles */
+
+/* Table Container */
+.table-responsive {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.results-container {
+  margin-top: 20px;
+}
+
+.results-container h3 {
+  margin: 0 0 20px 0;
+  color: #495057;
+  font-size: 1.3rem;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:nth-child(odd):hover {
+  background-color: #e9ecef;
+}
+
+/* Table Actions */
+.actions {
+  white-space: nowrap;
+}
+
+.actions .btn {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+/* Table Data Styling */
+.table td strong {
+  color: #495057;
+}
+
+.table .status-active {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.table .status-inactive {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.table .price {
+  font-weight: 600;
+  color: #007bff;
+}
+
+.table .date {
+  color: #6c757d;
+  font-size: 13px;
+}
+
+/* Empty State */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.empty-state i {
+  font-size: 48px;
+  color: #6c757d;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.empty-state h4 {
+  color: #495057;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.empty-state p {
+  color: #6c757d;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.icon-search-empty:before {
+  content: "🔍";
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.pagination .btn {
+  margin: 0;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination .current {
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-weight: 600;
+}
+
+/* Table Filters */
+.table-filters {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.table-filters select,
+.table-filters input {
+  max-width: 200px;
+}
+
+.table-filters label {
+  margin: 0 5px 0 0;
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Loading State */
+.table-loading {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+}
+
+.table-loading:before {
+  content: "⏳";
+  font-size: 24px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .actions .btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .table-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-filters > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .actions,
+  .table-filters,
+  .pagination {
+    display: none;
+  }
+
+  .table {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}

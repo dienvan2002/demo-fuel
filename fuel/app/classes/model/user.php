@@ -1,0 +1,80 @@
+<?php
+
+class Model_User extends \Orm\Model
+{
+	protected static $_properties = array(
+		"id" => array(
+			"label" => "Id",
+			"data_type" => "int",
+		),
+		"name" => array(
+			"label" => "Name",
+			"data_type" => "varchar",
+		),
+		"username" => array(
+			"label" => "Username",
+			"data_type" => "varchar",
+		),
+		"password" => array(
+			"label" => "Password",
+			"data_type" => "varchar",
+		),
+		"phone" => array(
+			"label" => "Phone",
+			"data_type" => "int",
+		),
+		"gender" => array(
+			"label" => "Gender",
+			"data_type" => "int",
+		),
+		"avt" => array(
+			"label" => "Avt",
+			"data_type" => "varchar",
+		),
+		"isAdmin" => array(
+			"label" => "IsAdmin",
+			"data_type" => "boolean",
+		),
+		"created_at" => array(
+			"label" => "Created at",
+			"data_type" => "int",
+		),
+		"updated_at" => array(
+			"label" => "Updated at",
+			"data_type" => "int",
+		),
+	);
+
+	protected static $_observers = array(
+		'Orm\Observer_CreatedAt' => array(
+			'events' => array('before_insert'),
+			'property' => 'created_at',
+			'mysql_timestamp' => false,
+		),
+		'Orm\Observer_UpdatedAt' => array(
+			'events' => array('before_update'),
+			'property' => 'updated_at',
+			'mysql_timestamp' => false,
+		),
+	);
+
+	protected static $_table_name = 'users';
+
+	protected static $_primary_key = array('id');
+
+	protected static $_has_many = array(
+		'carts' => array(
+			'key_from' => 'id',
+			'model_to' => 'Model_Cart',
+			'key_to' => 'idUser',
+			'cascade_save' => true,
+			'cascade_delete' => false,
+		),
+	);
+
+	protected static $_many_many = array();
+
+	protected static $_has_one = array();
+
+	protected static $_belongs_to = array();
+}

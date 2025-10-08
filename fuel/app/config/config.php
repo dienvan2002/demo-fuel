@@ -447,92 +447,76 @@ return array(
 	),
 
 	/**
- * -------------------------------------------------------------------------
- *  Always load
- * -------------------------------------------------------------------------
- */
+	 * -------------------------------------------------------------------------
+	 *  Always load
+	 * -------------------------------------------------------------------------
+	 */
 
-	// 'always_load' => array(
-	/**
- * ---------------------------------------------------------------------
- *  These packages are loaded on Fuel's startup.
- *  You can specify them in the following manner:
- *
- *      'packages' => array('auth');
- *
- *  This will assume the packages are in PKGPATH.
- *
- *  Use this format to specify the path to the package explicitly.
- *
- *      'packages' => array(
- *          array('auth' => PKGPATH.'auth/')
- *      );
- * ---------------------------------------------------------------------
- */
+	'always_load' => array(
 
-	// 'packages' => array(
-	// 	// 'orm',
-	// ),
+		'packages' => array(
+			'orm',
+		),
 
-	/**
- * ---------------------------------------------------------------------
- *  These modules are always loaded on Fuel's startup.
- *  You can specify them in the following manner:
- *
- *      'modules' => array('module_name');
- *
- *  A path must be set in 'module_paths' for this to work.
- * ---------------------------------------------------------------------
- */
+		/**
+	 * ---------------------------------------------------------------------
+	 *  These modules are always loaded on Fuel's startup.
+	 *  You can specify them in the following manner:
+	 *
+	 *      'modules' => array('module_name');
+	 *
+	 *  A path must be set in 'module_paths' for this to work.
+	 * ---------------------------------------------------------------------
+	 */
 
-	// 'modules' => array(),
+		// 'modules' => array(),
 
-	/**
- * ---------------------------------------------------------------------
- *  Classes to autoload & initialize even when not used
- * ---------------------------------------------------------------------
- */
+		/**
+	 * ---------------------------------------------------------------------
+	 *  Classes to autoload & initialize even when not used
+	 * ---------------------------------------------------------------------
+	 */
 
-	// 'classes' => array(),
+		// 'classes' => array(),
 
-	/**
- * ---------------------------------------------------------------------
- *  Configurations to autoload
- *
- *  If you want to load 'session' config into a group 'session',
- *  you only have to add 'session'.
- *
- *      'config' => array('session')
- *
- *  If you want to add it to another group (example: 'auth'),
- *  you have to add it like:
- *
- *      'config' => array('session' => 'auth')
- *
- *  If you don't want the config in a group, use null as groupname.
- * ---------------------------------------------------------------------
- */
+		/**
+	 * ---------------------------------------------------------------------
+	 *  Configurations to autoload
+	 *
+	 *  If you want to load 'session' config into a group 'session',
+	 *  you only have to add 'session'.
+	 *
+	 *      'config' => array('session')
+	 *
+	 *  If you want to add it to another group (example: 'auth'),
+	 *  you have to add it like:
+	 *
+	 *      'config' => array('session' => 'auth')
+	 *
+	 *  If you don't want the config in a group, use null as groupname.
+	 * ---------------------------------------------------------------------
+	 */
 
-	// 'config' => array(),
+		// 'config' => array(),
 
-	/**
- * ---------------------------------------------------------------------
- *  Language files to autoload
- *
- *  If you want to load 'validation' lang into a group 'validation',
- *  you only have to add 'validation'.
- *
- *      'language' => array('validation')
- *
- *  If you want to add it to another group (example: 'forms'),
- *  you have to add it like:
- *
- *      'language' => array('validation' => 'forms')
- *
- *  If you don't want the lang in a group, use null as groupname.
- * ---------------------------------------------------------------------
- */
+		/**
+	 * ---------------------------------------------------------------------
+	 *  Language files to autoload
+	 *
+	 *  If you want to load 'validation' lang into a group 'validation',
+	 *  you only have to add 'validation'.
+	 *
+	 *      'language' => array('validation')
+	 *
+	 *  If you want to add it to another group (example: 'forms'),
+	 *  you have to add it like:
+	 *
+	 *      'language' => array('validation' => 'forms')
+	 *
+	 *  If you don't want the lang in a group, use null as groupname.
+	 * ---------------------------------------------------------------------
+	 */
 
-	// 'language' => array(),
-	// ),
+		// 'language' => array(),
+	),
 );

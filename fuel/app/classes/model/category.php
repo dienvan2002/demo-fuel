@@ -1,6 +1,8 @@
 <?php
 
-class Model_Category extends \Orm\Model
+use \Orm\Model;
+
+class Model_Category extends Orm\Model
 {
 	protected static $_properties = array(
 		"id" => array(
@@ -57,7 +59,7 @@ class Model_Category extends \Orm\Model
 	/**
 	 * Validation rules for category
 	 */
-	public static function validate($factory)
+	private static function validate($factory)
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('name', 'Tên danh mục', 'required|max_length[255]|min_length[2]');
@@ -258,5 +260,16 @@ class Model_Category extends \Orm\Model
 		}
 
 		return $options;
+	}
+	public static function get_dropdown()
+	{
+		$products = self::find('all');
+		$result = [];
+
+		foreach ($products as $p) {
+			$result[$p->id] = $p->name;
+		}
+
+		return $result;
 	}
 }

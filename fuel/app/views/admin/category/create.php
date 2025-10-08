@@ -1,30 +1,40 @@
 <div class="create-page-wrapper">
       <h2 class="title">Thêm danh mục sản phẩm</h2>
 
-      <?php if (Session::get_flash('errors')): ?>
-      <div class="alert error">
-            <ul>
-                  <?php foreach (Session::get_flash('errors') as $error): ?>
-                  <li><?= $error ?></li>
-                  <?php endforeach; ?>
-            </ul>
+      <!-- Hiển thị thông báo lỗi -->
+      <?php if (isset($error_messages) && !empty($error_messages)): ?>
+      <div class="alert alert-error">
+            <i class="icon"></i>
+            <div class="alert-content">
+                  <ul>
+                        <?php foreach ($error_messages as $error): ?>
+                        <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                  </ul>
+            </div>
       </div>
       <?php endif; ?>
 
-      <?php if (Session::get_flash('success')): ?>
-      <div class="alert success"><?= Session::get_flash('success') ?></div>
-      <?php endif; ?>
-
-      <div class="form-container">
+      <!-- Hiển thị thông báo thành công -->
+      <?php if (isset($success_message) && !empty($success_message)): ?>
+      <div class="alert alert-success">
+            <i class="icon"></i>
+            <div class="alert-content">
+                  <?= $success_message ?>
+            </div>
+      </div>
+      <?php endif; ?> <div class="form-container">
             <?= Form::open(['action' => 'admin/category/create', 'method' => 'post']) ?>
             <div class="form-group">
                   <?= Form::label('Tên danh mục', 'name') ?><span class="required">*</span>
                   <?= Form::input('name', Input::post('name'), ['required' => true]) ?>
             </div>
             <div class="form-actions">
-                  <button type="submit" class="btn btn-primary">Thêm danh mục</button>
-                  <button type="button" class="btn btn-secondary" onclick="window.history.back();">Hủy</button>
+                  <button type="submit" class="btn btn-primary"> Thêm danh mục</button>
+                  <a href="<?= Uri::create('admin') ?>" class="btn btn-secondary"> Hủy</a>
             </div>
             <?= Form::close() ?>
       </div>
 </div>
+
+<script src="<?= Uri::base(false) ?>assets/js/admin/create.js"></script>

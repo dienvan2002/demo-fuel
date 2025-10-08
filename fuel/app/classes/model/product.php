@@ -68,13 +68,43 @@ class Model_Product extends \Orm\Model
 		),
 	);
 
-	protected static $_many_many = array(
-	);
+	protected static $_many_many = array();
 
-	protected static $_has_one = array(
-	);
+	protected static $_has_one = array();
 
-	protected static $_belongs_to = array(
-	);
+	protected static $_belongs_to = array();
 
+
+	public static function save_product($data)
+	{
+		$product = self::forge([
+			'idCategory'  => $data['idCategory'],
+			'name'        => $data['name'],
+			'price'       => $data['price'],
+			'img'         => isset($data['img']) ? $data['img'] : null,
+			'description' => isset($data['description']) ? $data['description'] : '',
+			'visible'     => isset($data['visible']) ? (int)$data['visible'] : 1,
+		]);
+
+		$product->save();
+		return ['success' => true, 'message' => 'Thêm sản phẩm thành công!'];
+	}
+
+	public static function update_product($id, $data)
+	{
+		$product = self::find($id);
+		if (!$product) return ['success' => false, 'errors' => ['Sản phẩm không tồn tại']];
+
+		$product->set($data);
+		$product->save();
+		return ['success' => true];
+	}
+
+	public static function delete_product($id)
+	{
+		$product = self::find($id);
+		if ($product) $product->delete();
+		return ['success' => true];
+	}
+	
 }

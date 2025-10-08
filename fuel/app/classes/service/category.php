@@ -13,6 +13,7 @@ class Service_Category
                   return ['success' => false, 'errors' => $errors];
             }
 
-            return Model_Category::save_category($data['name']);
+            // Gọi Model để xử lý business logic và return kết quả
+            return Model_Category::create_category($data);
       }
 }

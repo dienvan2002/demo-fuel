@@ -9,7 +9,20 @@
 build
 .idea
 nbproject/
+db_data/
+*.ibd
+*.ibdata*
+*.frm
+*.MYI
+*.MYD
+*.log
 
+# Ignore uploads
+public/uploads/
+
+# Ignore cache and logs
+fuel/app/cache/
+fuel/app/logs/
 # hidden files created by Windows
 Thumbs.db
 desktop.ini

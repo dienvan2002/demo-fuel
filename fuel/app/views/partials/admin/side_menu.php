@@ -36,4 +36,46 @@ $current_action = Uri::segment(3);
                   </li>
             </ul>
       </div>
+      
+      <!-- Logout Button -->
+      <div class="logout-section">
+            <a href="<?php echo Uri::create('auth/logout'); ?>" class="btn-logout">
+                  <i class="fas fa-sign-out-alt"></i>
+                  Đăng xuất
+            </a>
+      </div>
 </div>
+
+<style>
+.logout-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e9ecef;
+}
+
+.btn-logout {
+      display: block;
+      width: 100%;
+      background: #dc3545;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+}
+
+.btn-logout:hover {
+      background: #c82333;
+      color: white;
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-logout i {
+      margin-right: 8px;
+}
+</style>

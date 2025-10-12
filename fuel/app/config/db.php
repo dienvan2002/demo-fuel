@@ -25,8 +25,8 @@ return array(
       'default' => array(
             'type'        => 'mysqli',
             'connection'  => array(
-                  'hostname'   => 'db',
-                  'port'       => '3306',
+                  'hostname'   => '127.0.0.1', // Hoặc 'localhost' nếu chạy local
+                  'port'       => '33066',     // Port từ docker-compose (33066:3306)
                   'database'   => 'fuel_db',
                   'username'   => 'root',
                   'password'   => 'root',

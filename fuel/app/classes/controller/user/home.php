@@ -1,17 +1,22 @@
 <?php
 
 /**
- * Admin Home Controller - Trang chủ admin
+ * User Home Controller - Trang chủ cho user thường
  * Theo chuẩn FuelPHP chính thức
  */
-class Controller_Admin_Home extends Controller_Base
+class Controller_User_Home extends Controller_Base
 {
       public function before()
       {
             parent::before();
             
-            // Kiểm tra quyền admin theo chuẩn FuelPHP
-            $this->require_admin();
+            // Kiểm tra authentication theo chuẩn FuelPHP
+            $this->require_login();
+            
+            // Nếu là admin, redirect về admin
+            if (Auth::member(100)) {
+                  Response::redirect('admin/home');
+            }
       }
 
       public function action_index()
@@ -20,14 +25,14 @@ class Controller_Admin_Home extends Controller_Base
             $current_user = Model_User::get_current_user();
             $current_profile = Model_User::get_profile();
             
-            $main_content = View::forge('admin/home', [
+            $main_content = View::forge('user/home', [
                   'current_user' => $current_user,
                   'current_profile' => $current_profile
             ]);
 
-            return Response::forge(View::forge('layouts/admin/base', [
+            return Response::forge(View::forge('layouts/user/base', [
                   'main_content' => $main_content,
-                  'custom_css' => 'assets/css/admin/home.css'
+                  'current_user' => $current_user
             ]));
       }
 }

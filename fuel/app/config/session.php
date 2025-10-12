@@ -1,17 +1,23 @@
 <?php
 
 return array(
-      'driver' => 'cookie',
+      'driver' => 'file',
       'match_ip' => false,
-      'match_ua' => true,
-      'cookie_domain' => null,
+      'match_ua' => false,
+      'cookie_domain' => '',
       'cookie_path' => '/',
       'cookie_http_only' => false,
-      'encrypt_cookie' => true,
+      'encrypt_cookie' => false,
       'expire_on_close' => false,
       'expiration_time' => 7200,
-      'rotation_time' => 300,
+      'rotation_time' => false,
       'flash_id' => 'flash',
       'flash_auto_expire' => true,
       'post_cookie_name' => '',
+      'enable_cookie' => true,
+      'file' => array(
+            'cookie_name' => 'fuelfid',
+            'path' => APPPATH . 'tmp/sessions',
+            'gc_probability' => 5
+      ),
 );

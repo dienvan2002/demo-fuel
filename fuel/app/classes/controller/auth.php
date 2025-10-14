@@ -18,7 +18,7 @@ class Controller_Auth extends Controller_Base
 		try {
 			// Nếu đã đăng nhập, redirect về trang chủ
 			if (Service_Auth::check()) {
-				$redirect = Service_Auth::isAdmin() ? 'admin/home' : 'user/home';
+				$redirect = Service_Auth::isAdmin() ? 'admin/home' : 'products';
 				Response::redirect($redirect);
 				exit();
 			}
@@ -34,7 +34,7 @@ class Controller_Auth extends Controller_Base
 				
 				if ($result['success']) {
 					// Set flash message để hiển thị sau khi redirect
-					Session::set_flash('success', '🎉 ' . $result['message'] . '! Chào mừng bạn đã quay trở lại.');
+					Session::set_flash('success',   $result['message'] . '! Chào mừng bạn đã quay trở lại.');
 					
 					$redirect_url = Uri::create($result['redirect']);
 					Response::redirect($redirect_url);
@@ -45,7 +45,7 @@ class Controller_Auth extends Controller_Base
 			}
 
 		} catch (\Exception $e) {
-			$error_message = '❌ Lỗi hệ thống: ' . $e->getMessage();
+			$error_message = ' Lỗi hệ thống: ' . $e->getMessage();
 			Log::error('Login exception: ' . $e->getMessage());
 		}
 
@@ -57,10 +57,7 @@ class Controller_Auth extends Controller_Base
 		return Response::forge($view);
 	}
 
-	/**
-	 * Xử lý đăng xuất
-	 * Controller chỉ xử lý HTTP request/response, business logic trong Service
-	 */
+	
 	public function action_logout()
 	{
 		// Gọi Service để xử lý logout logic

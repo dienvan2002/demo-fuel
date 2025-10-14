@@ -73,7 +73,7 @@ class Service_Auth
 		// Xóa toàn bộ session data
 		\Session::destroy();
 		
-		\Log::info('✅ User logged out successfully');
+		\Log::info(' User logged out successfully');
 		
 		return [
 			'success' => true,
@@ -207,7 +207,7 @@ class Service_Auth
 		if (\Auth::member(100)) {
 			return 'admin/home';
 		} else {
-			return 'user/home';
+			return 'products';
 		}
 	}
 }

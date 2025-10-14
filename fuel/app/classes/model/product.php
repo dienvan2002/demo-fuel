@@ -97,14 +97,16 @@ class Model_Product extends \Orm\Model
 
 		$product->set($data);
 		$product->save();
-		return ['success' => true];
+		return ['success' => true, 'message' => 'Cập nhật sản phẩm thành công'];
 	}
 
 	public static function delete_product($id)
 	{
 		$product = self::find($id);
-		if ($product) $product->delete();
-		return ['success' => true];
+		if (!$product) return ['success' => false, 'message' => 'Sản phẩm không tồn tại'];
+		
+		$product->delete();
+		return ['success' => true, 'message' => 'Xóa sản phẩm thành công'];
 	}
 	
 }

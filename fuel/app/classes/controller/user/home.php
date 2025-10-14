@@ -1,38 +1,50 @@
 <?php
 
 /**
- * User Home Controller - Trang chủ cho user thường
- * Theo chuẩn FuelPHP chính thức
+ * Controller_User_Home - Trang chủ cho user thường
+ * Hiển thị thông tin cá nhân và dashboard
  */
 class Controller_User_Home extends Controller_Base
 {
-      public function before()
-      {
-            parent::before();
-            
-            // Kiểm tra authentication theo chuẩn FuelPHP
-            $this->require_login();
-            
-            // Nếu là admin, redirect về admin
-            if (Auth::member(100)) {
-                  Response::redirect('admin/home');
-            }
-      }
+    public function before()
+    {
+        parent::before();
+        $this->require_login(); // Chỉ cần đăng nhập, không cần admin
+    }
 
-      public function action_index()
-      {
-            // Lấy thông tin user hiện tại
-            $current_user = Model_User::get_current_user();
-            $current_profile = Model_User::get_profile();
-            
-            $main_content = View::forge('user/home', [
-                  'current_user' => $current_user,
-                  'current_profile' => $current_profile
-            ]);
+    public function action_index()
+    {
+        // Lấy thông tin user hiện tại
+        $current_user = Service_Auth::getCurrentUser();
+        if (!$current_user) {
+            Session::set_flash('error', 'Không tìm thấy thông tin người dùng');
+            Response::redirect('auth/login');
+            exit();
+        }
 
-            return Response::forge(View::forge('layouts/user/base', [
-                  'main_content' => $main_content,
-                  'current_user' => $current_user
-            ]));
-      }
+        // Lấy profile chi tiết
+        $profile = Model_User::get_profile($current_user['id']);
+        
+        // Merge user info với profile để có đầy đủ thông tin
+        $user_info = array_merge($current_user, $profile);
+        
+        // Lấy thống kê cơ bản (có thể mở rộng sau)
+        $stats = [
+            'total_orders' => 0, // Sẽ implement sau
+            'total_spent' => 0,  // Sẽ implement sau
+            'cart_items' => 0    // Sẽ implement sau
+        ];
+
+        $view = View::forge('user/home', [
+            'current_user' => $user_info,
+            'profile' => $profile,
+            'stats' => $stats
+        ]);
+
+        return Response::forge(View::forge('layouts/user/base', [
+            'main_content' => $view,
+            'title' => 'Trang chủ',
+            'current_user' => $user_info
+        ]));
+    }
 }

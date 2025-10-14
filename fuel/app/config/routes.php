@@ -43,14 +43,27 @@ return array(
 	 * -------------------------------------------------------------------------
 	 */
 	'admin/home' => array('admin/home', 'name' => 'admin_home'),
+	'admin/category' => 'admin/category/index',
+	'admin/category/index' => 'admin/category/index',
 	'admin/category/create' => 'admin/category/create',
 	'admin/category/search' => 'admin/category/search',
 	'admin/category/edit/(:segment)' => 'admin/category/edit/$1',
 	'admin/category/delete/(:segment)' => 'admin/category/delete/$1',
+	'admin/category/show/(:segment)' => 'admin/category/show/$1',
 	'admin/category/dropdown' => 'admin/category/dropdown',
+	'admin/product' => 'admin/product/index',
+	'admin/product/index' => 'admin/product/index',
 	'admin/product/create' => 'admin/product/create',
 	'admin/product/edit/(:segment)' => 'admin/product/edit/$1',
 	'admin/product/delete/(:segment)' => 'admin/product/delete/$1',
+	'admin/product/show/(:segment)' => 'admin/product/show/$1',
+	'admin/user' => 'admin/user/index',
+	'admin/user/index' => 'admin/user/index',
+	'admin/user/create' => 'admin/user/create',
+	'admin/user/search' => 'admin/user/search',
+	'admin/user/edit/(:segment)' => 'admin/user/edit/$1',
+	'admin/user/delete/(:segment)' => 'admin/user/delete/$1',
+	'admin/user/show/(:segment)' => 'admin/user/show/$1',
 
 	/**
 	 * -------------------------------------------------------------------------
@@ -59,6 +72,7 @@ return array(
 	 */
 	'user/home' => array('user/home', 'name' => 'user_home'),
 	'user/products' => 'user/products',
+	'user/products/detail/(:segment)' => 'user/products/detail/$1',
 	'user/cart' => 'user/cart',
 
 	/**
@@ -66,7 +80,8 @@ return array(
 	 *  Public routes (không cần đăng nhập)
 	 * -------------------------------------------------------------------------
 	 */
-	'products' => 'welcome/products',
+	'products' => 'user/products',
+	'products/detail/(:segment)' => 'user/products/detail/$1',
 	'categories' => 'welcome/categories',
 
 	/**

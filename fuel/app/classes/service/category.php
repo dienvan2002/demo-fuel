@@ -187,4 +187,14 @@ class Service_Category
 
             return $options;
       }
+
+      /**
+       * Lấy số lượng sản phẩm trong category
+       */
+      public static function getProductCount($category_id)
+      {
+            return Model_Product::query()
+                  ->where('idCategory', $category_id)
+                  ->count();
+      }
 }

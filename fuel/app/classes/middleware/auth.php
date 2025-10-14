@@ -1,15 +1,8 @@
 <?php
 
-/**
- * Auth Middleware - Kiểm tra authentication và phân quyền với SimpleAuth
- * Theo chuẩn FuelPHP chính thức
- */
 class Middleware_Auth
 {
-	/**
-	 * Kiểm tra user đã đăng nhập chưa
-	 * Nếu chưa đăng nhập, redirect về trang login
-	 */
+
 	public static function check_login()
 	{
 		if (!Auth::check()) {
@@ -18,10 +11,6 @@ class Middleware_Auth
 		}
 	}
 
-	/**
-	 * Kiểm tra user có phải admin không (Group 100)
-	 * Nếu không phải admin, redirect về trang user hoặc báo lỗi
-	 */
 	public static function check_admin()
 	{
 		// Trước tiên kiểm tra đã đăng nhập chưa
@@ -34,10 +23,6 @@ class Middleware_Auth
 		}
 	}
 
-	/**
-	 * Kiểm tra user có phải user thường không
-	 * Nếu là admin, redirect về admin panel
-	 */
 	public static function check_user()
 	{
 		// Trước tiên kiểm tra đã đăng nhập chưa
@@ -49,10 +34,6 @@ class Middleware_Auth
 		}
 	}
 
-	/**
-	 * Kiểm tra user chưa đăng nhập (cho trang login/register)
-	 * Nếu đã đăng nhập, redirect về trang phù hợp
-	 */
 	public static function check_guest()
 	{
 		if (Auth::check()) {
@@ -64,10 +45,6 @@ class Middleware_Auth
 		}
 	}
 
-	/**
-	 * Kiểm tra quyền cụ thể với SimpleAuth ACL
-	 * Ví dụ: check_permission('products', 'create')
-	 */
 	public static function check_permission($area, $permission)
 	{
 		self::check_login();

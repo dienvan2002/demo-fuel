@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Admin Home Controller - Trang chủ admin
- * Theo chuẩn FuelPHP chính thức
- */
 class Controller_Admin_Home extends Controller_Base
 {
       public function before()

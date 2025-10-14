@@ -1,9 +1,6 @@
 <?php
 
-/**
- * Controller_User_Home - Trang chủ cho user thường
- * Hiển thị thông tin cá nhân và dashboard
- */
+
 class Controller_User_Home extends Controller_Base
 {
     public function before()
@@ -30,9 +27,9 @@ class Controller_User_Home extends Controller_Base
         
         // Lấy thống kê cơ bản (có thể mở rộng sau)
         $stats = [
-            'total_orders' => 0, // Sẽ implement sau
-            'total_spent' => 0,  // Sẽ implement sau
-            'cart_items' => 0    // Sẽ implement sau
+            'total_orders' => 0, 
+            'total_spent' => 0,  
+            'cart_items' => 0    
         ];
 
         $view = View::forge('user/home', [

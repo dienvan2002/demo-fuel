@@ -1,15 +1,8 @@
 <?php
 
-/**
- * Auth Controller - Xử lý đăng nhập/đăng xuất với SimpleAuth
- * Theo chuẩn FuelPHP chính thức
- */
 class Controller_Auth extends Controller_Base
 {
-	/**
-	 * Hiển thị form đăng nhập
-	 * Controller chỉ xử lý HTTP request/response, business logic trong Service
-	 */
+	
 	public function action_login()
 	{
 		$error_message = null;
@@ -68,10 +61,7 @@ class Controller_Auth extends Controller_Base
 		exit();
 	}
 
-	/**
-	 * Hiển thị form đăng ký
-	 * Controller chỉ xử lý HTTP request/response, business logic trong Service
-	 */
+
 	public function action_register()
 	{
 		$error_message = null;

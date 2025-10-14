@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Admin Category Controller - Quản lý danh mục
- * Thin Controller - Chỉ xử lý HTTP request/response
- * Business logic được delegate cho Model
- * Theo chuẩn FuelPHP chính thức
- */
 class Controller_Admin_Category extends Controller_Base
 {
       public function before()

@@ -27,7 +27,7 @@
                     </div>
                     <?php endif; ?>
 
-                    <form action="<?php echo Uri::create('admin/category/edit/' . $category->id); ?>" method="POST">
+                    <form action="<?php echo Uri::create('admin/category/edit/' . $category['id']); ?>" method="POST">
                         <!-- CSRF Protection (FuelPHP tự động xử lý) -->
 
                         <div class="mb-3">
@@ -39,7 +39,7 @@
                                    id="name" 
                                    class="form-control" 
                                    placeholder="Enter category name"
-                                   value="<?php echo Input::post('name', $category->name); ?>"
+                                   value="<?php echo Input::post('name', $category['name']); ?>"
                                    required />
                             <?php if (isset($error_messages['name'])): ?>
                             <span class="text-danger"><?= $error_messages['name'] ?></span>

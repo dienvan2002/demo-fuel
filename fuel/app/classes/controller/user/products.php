@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Controller_User_Products - Trang sản phẩm cho user
- * Hiển thị danh sách sản phẩm với khả năng tìm kiếm và lọc
- */
 class Controller_User_Products extends Controller_Base
 {
     public function before()

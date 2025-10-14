@@ -1,36 +1,21 @@
 <?php
 
-/**
- * Base Controller - Controller cơ sở theo chuẩn FuelPHP
- * Chứa các method chung cho tất cả controllers
- */
 abstract class Controller_Base extends Controller
 {
-	/**
-	 * Before method - chạy trước mỗi action
-	 * Theo chuẩn FuelPHP
-	 */
+	
 	public function before()
 	{
 		parent::before();
 		
-		// Có thể thêm logic chung ở đây
-		// Ví dụ: set timezone, load common data, etc.
 	}
 
-	/**
-	 * After method - chạy sau mỗi action
-	 * Theo chuẩn FuelPHP
-	 */
+
 	public function after($response)
 	{
 		return parent::after($response);
 	}
 
-	/**
-	 * Kiểm tra user đã đăng nhập chưa
-	 * Helper method theo chuẩn FuelPHP
-	 */
+	
 	protected function require_login()
 	{
 		if (!Auth::check()) {
@@ -40,10 +25,7 @@ abstract class Controller_Base extends Controller
 		}
 	}
 
-	/**
-	 * Kiểm tra user có phải admin không
-	 * Helper method theo chuẩn FuelPHP
-	 */
+	
 	protected function require_admin()
 	{
 		$this->require_login();
@@ -55,10 +37,6 @@ abstract class Controller_Base extends Controller
 		}
 	}
 
-	/**
-	 * Kiểm tra quyền cụ thể
-	 * Helper method theo chuẩn FuelPHP
-	 */
 	protected function require_permission($area, $permission)
 	{
 		$this->require_login();

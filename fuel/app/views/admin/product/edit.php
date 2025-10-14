@@ -27,7 +27,7 @@
                     </div>
                     <?php endif; ?>
 
-                    <form action="<?php echo Uri::create('admin/product/edit/' . $product->id); ?>" method="POST" enctype="multipart/form-data">
+                    <form action="<?php echo Uri::create('admin/product/edit/' . $product['id']); ?>" method="POST" enctype="multipart/form-data">
                         <!-- CSRF Protection (FuelPHP tự động xử lý) -->
 
                         <div class="mb-3">
@@ -37,7 +37,7 @@
                                    id="name" 
                                    class="form-control" 
                                    placeholder="Enter product name"
-                                   value="<?php echo Input::post('name', $product->name); ?>"
+                                   value="<?php echo Input::post('name', $product['name']); ?>"
                                    required />
                             <?php if (isset($error_messages['name'])): ?>
                             <span class="text-danger"><?= $error_messages['name'] ?></span>
@@ -49,7 +49,7 @@
                             <select name="idCategory" id="idCategory" class="form-control" required>
                                 <option value="">Select Category</option>
                                 <?php foreach ($categories as $id => $name): ?>
-                                <option value="<?= $id ?>" <?= (Input::post('idCategory', $product->idCategory) == $id) ? 'selected' : '' ?>>
+                                <option value="<?= $id ?>" <?= (Input::post('idCategory', $product['idCategory']) == $id) ? 'selected' : '' ?>>
                                     <?= e($name) ?>
                                 </option>
                                 <?php endforeach; ?>
@@ -66,7 +66,7 @@
                                    id="price" 
                                    class="form-control" 
                                    placeholder="Enter price"
-                                   value="<?php echo Input::post('price', $product->price); ?>"
+                                   value="<?php echo Input::post('price', $product['price']); ?>"
                                    min="0"
                                    step="1000"
                                    required />
@@ -81,7 +81,7 @@
                                       id="description" 
                                       rows="3" 
                                       class="form-control" 
-                                      placeholder="Enter product description"><?php echo Input::post('description', $product->description); ?></textarea>
+                                      placeholder="Enter product description"><?php echo Input::post('description', $product['description']); ?></textarea>
                             <?php if (isset($error_messages['description'])): ?>
                             <span class="text-danger"><?= $error_messages['description'] ?></span>
                             <?php endif; ?>
@@ -89,9 +89,9 @@
 
                         <div class="mb-3">
                             <label for="img" class="form-label">Product Image</label>
-                            <?php if (!empty($product->img)): ?>
+                            <?php if (!empty($product['img'])): ?>
                             <div class="mb-2">
-                                <img src="<?= Uri::base(false) . $product->img ?>" alt="Current image" style="max-width: 200px; max-height: 150px;" class="img-thumbnail">
+                                <img src="<?= Uri::base(false) . $product['img'] ?>" alt="Current image" style="max-width: 200px; max-height: 150px;" class="img-thumbnail">
                                 <br><small class="text-muted">Current image</small>
                             </div>
                             <?php endif; ?>
@@ -115,7 +115,7 @@
                                        id="visible" 
                                        class="form-check-input" 
                                        value="1"
-                                       <?php echo (Input::post('visible', $product->visible) == 1 || Input::post('visible', $product->visible) == '1') ? 'checked' : ''; ?> />
+                                       <?php echo (Input::post('visible', $product['visible']) == 1 || Input::post('visible', $product['visible']) == '1') ? 'checked' : ''; ?> />
                                 <label class="form-check-label" for="visible">
                                     Visible (Show product to customers)
                                 </label>

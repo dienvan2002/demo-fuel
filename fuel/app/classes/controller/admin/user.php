@@ -12,13 +12,15 @@ class Controller_Admin_User extends Controller_Base
     {
         $this->require_permission('users', 'read');
         
-        $users = Service_User::getAll(array(
+        // Lấy danh sách users với pagination từ Service
+        $result = Service_User::getPaginated(1, 10, array(
             'order_by' => 'created_at',
             'order_dir' => 'desc'
         ));
         
         $view = View::forge('admin/user/index', [
-            'users' => $users
+            'users' => $result['users'],
+            'pagination' => $result['pagination']
         ]);
 
         return Response::forge(View::forge('layouts/admin/base', [

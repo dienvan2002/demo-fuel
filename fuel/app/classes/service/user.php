@@ -1,5 +1,7 @@
 <?php
 
+use Fuel\Core\Pagination;
+
 /**
  * Service_User - Business Logic cho User Management
  * Chứa tất cả logic xử lý nghiệp vụ liên quan đến User
@@ -304,6 +306,45 @@ class Service_User
         }
 
         return $users;
+    }
+
+    /**
+     * Lấy tổng số users
+     */
+    public static function getCount()
+    {
+        return DB::select(DB::expr('COUNT(*) as count'))
+            ->from('users')
+            ->execute()
+            ->get('count');
+    }
+
+    /**
+     * Lấy danh sách users với pagination
+     */
+    public static function getPaginated($page = 1, $per_page = 10, $options = array())
+    {
+        // Cấu hình pagination
+        $config = array(
+            'pagination_url' => Uri::create('admin/user/index'),
+            'total_items'    => self::getCount(),
+            'per_page'       => $per_page,
+            'uri_segment'    => 'page',
+        );
+
+        // Tạo đối tượng Pagination
+        $pagination = \Fuel\Core\Pagination::forge('user_pagination', $config);
+        
+        // Lấy danh sách users với pagination
+        $users = self::getAll(array_merge($options, array(
+            'limit' => $pagination->per_page,
+            'offset' => $pagination->offset
+        )));
+
+        return array(
+            'users' => $users,
+            'pagination' => $pagination
+        );
     }
 
     /**

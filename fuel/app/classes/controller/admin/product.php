@@ -15,16 +15,16 @@ class Controller_Admin_Product extends Controller_Base
         // Kiểm tra quyền đọc sản phẩm
         $this->require_permission('products', 'read');
         
-        // Lấy danh sách sản phẩm từ Service (admin mode - tất cả sản phẩm)
-        $result = Service_Product::getAll(array(
+        // Lấy danh sách sản phẩm với pagination từ Service
+        $result = Service_Product::getPaginated(1, 10, array(
             'order_by' => 'created_at',
             'order_dir' => 'desc',
             'admin_mode' => true
         ));
-        $products = $result['products'] ?? [];
         
         $view = View::forge('admin/product/index', [
-            'products' => $products
+            'products' => $result['products'],
+            'pagination' => $result['pagination']
         ]);
 
         return Response::forge(View::forge('layouts/admin/base', [

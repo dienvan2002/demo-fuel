@@ -1,4 +1,6 @@
 <?php
+use Fuel\Core\Pagination;
+
 class Service_Category
 {
       public static function create($data)
@@ -162,8 +164,17 @@ class Service_Category
 
             // Order by
             $order_by = isset($filters['order_by']) ? $filters['order_by'] : 'created_at';
-            $order_dir = isset($filters['order_dir']) ? $filters['order_dir'] : 'esc';
+            $order_dir = isset($filters['order_dir']) ? $filters['order_dir'] : 'desc';
             $query->order_by($order_by, $order_dir);
+
+            // Apply limit and offset for pagination
+            if (isset($filters['limit'])) {
+                  $query->limit($filters['limit']);
+            }
+            
+            if (isset($filters['offset'])) {
+                  $query->offset($filters['offset']);
+            }
 
             return $query->get();
       }
@@ -187,7 +198,6 @@ class Service_Category
 
             return $options;
       }
-
       /**
        * Lấy số lượng sản phẩm trong category
        */
@@ -197,4 +207,41 @@ class Service_Category
                   ->where('idCategory', $category_id)
                   ->count();
       }
+
+      /**
+       * Lấy tổng số categories
+       */
+      public static function getCount()
+      {
+            return Model_Category::count();
+      }
+
+      /**
+       * Lấy danh sách categories với pagination
+       */
+      public static function getPaginated($page = 1, $per_page = 10, $filters = array())
+      {
+            // Cấu hình pagination
+            $config = array(
+                  'pagination_url' => Uri::create('admin/category/index'),
+                  'total_items'    => self::getCount(),
+                  'per_page'       => $per_page,
+                  'uri_segment'    => 'page',
+            );
+
+            // Tạo đối tượng Pagination
+            $pagination = \Fuel\Core\Pagination::forge('category_pagination', $config);
+            
+            // Lấy danh sách categories với pagination
+            $categories = self::getAll(array_merge($filters, array(
+                  'limit' => $pagination->per_page,
+                  'offset' => $pagination->offset
+            )));
+
+            return array(
+                  'categories' => $categories,
+                  'pagination' => $pagination
+            );
+      }
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Fuel\Core\Upload;
+use Fuel\Core\Pagination;
 
 class Service_Product
 {
@@ -263,5 +264,47 @@ class Service_Product
                   'products' => $products_array,
                   'total' => count($products_array)
             ];
+      }
+
+      /**
+       * Lấy tổng số products
+       */
+      public static function getCount($admin_mode = false)
+      {
+            $query = Model_Product::query();
+            
+            if (!$admin_mode) {
+                  $query->where('visible', 1);
+            }
+            
+            return $query->count();
+      }
+
+      /**
+       * Lấy danh sách products với pagination
+       */
+      public static function getPaginated($page = 1, $per_page = 10, $options = array())
+      {
+            // Cấu hình pagination
+            $config = array(
+                  'pagination_url' => Uri::create('admin/product/index'),
+                  'total_items'    => self::getCount(isset($options['admin_mode']) ? $options['admin_mode'] : false),
+                  'per_page'       => $per_page,
+                  'uri_segment'    => 'page',
+            );
+
+            // Tạo đối tượng Pagination
+            $pagination = \Fuel\Core\Pagination::forge('product_pagination', $config);
+            
+            // Lấy danh sách products với pagination
+            $result = self::getAll(array_merge($options, array(
+                  'limit' => $pagination->per_page,
+                  'offset' => $pagination->offset
+            )));
+
+            return array(
+                  'products' => $result['products'],
+                  'pagination' => $pagination
+            );
       }
 }

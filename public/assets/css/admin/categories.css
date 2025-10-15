@@ -1,5 +1,10 @@
 /* Categories Management - Clean & Simple Design */
 
+/* TEST CSS - Nếu thấy màu đỏ này thì CSS đã load */
+body {
+    border-top: 5px solid red !important;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -104,16 +109,18 @@ body {
 
 /* Table */
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 20px !important;
+    background-color: #fff !important;
 }
 
 .table th,
 .table td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #dee2e6;
+    padding: 12px !important;
+    text-align: left !important;
+    border: 1px solid #dee2e6 !important;
+    vertical-align: middle !important;
 }
 
 .table th {
@@ -156,21 +163,31 @@ body {
 
 /* Action buttons - 3 buttons in one row */
 .table td:last-child {
-    white-space: nowrap;
+    white-space: nowrap !important;
+    text-align: center !important;
+    background-color: #ffeb3b !important; /* Màu vàng rõ ràng để test */
+    border: 3px solid #ff5722 !important; /* Border đỏ để test */
+}
+
+.table td:last-child .d-flex {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
 }
 
 .table td:last-child .btn {
-    margin-right: 5px;
-    margin-bottom: 0;
-}
-
-.table td:last-child .btn:last-child {
-    margin-right: 0;
+    margin: 0 !important;
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+    min-width: 70px !important;
+    flex-shrink: 0 !important;
 }
 
 /* Utility */
 .text-center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .text-danger {
@@ -205,8 +222,25 @@ body {
         font-size: 12px;
     }
     
+    .table td:last-child .d-flex {
+        gap: 4px;
+    }
+    
     .table td:last-child .btn {
-        margin-right: 3px;
-        margin-bottom: 0;
+        padding: 4px 8px;
+        font-size: 12px;
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 576px) {
+    .table td:last-child .d-flex {
+        flex-direction: column;
+        gap: 3px;
+    }
+    
+    .table td:last-child .btn {
+        width: 100%;
+        margin-bottom: 3px;
     }
 }

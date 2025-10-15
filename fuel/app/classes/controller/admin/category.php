@@ -15,14 +15,15 @@ class Controller_Admin_Category extends Controller_Base
             // Kiểm tra quyền đọc category theo chuẩn FuelPHP
             $this->require_permission('categories', 'read');
             
-            // Lấy danh sách categories từ Service
-            $categories = Service_Category::getAll(array(
+            // Lấy danh sách categories với pagination từ Service
+            $result = Service_Category::getPaginated(1, 10, array(
                   'order_by' => 'created_at',
                   'order_dir' => 'desc'
             ));
             
             $view = View::forge('admin/category/index', [
-                  'categories' => $categories
+                  'categories' => $result['categories'],
+                  'pagination' => $result['pagination']
             ]);
 
             return Response::forge(View::forge('layouts/admin/base', [

@@ -63,19 +63,21 @@
                                         echo $created_at > 0 ? date('Y-m-d H:i:s', $created_at) : 'N/A';
                                         ?>
                                     </td>
-                                    <td>
-                                        <a href="<?php echo Uri::create('admin/product/edit/' . ($product['id'] ?? $product->id)); ?>" 
-                                           class="btn btn-success">Edit</a>
-                                        <a href="<?php echo Uri::create('admin/product/show/' . ($product['id'] ?? $product->id)); ?>" 
-                                           class="btn btn-info">Show</a>
+                                    <td class="text-center">
+                                        <div class="d-flex">
+                                            <a href="<?php echo Uri::create('admin/product/edit/' . ($product['id'] ?? $product->id)); ?>" 
+                                               class="btn btn-success">Edit</a>
+                                            <a href="<?php echo Uri::create('admin/product/show/' . ($product['id'] ?? $product->id)); ?>" 
+                                               class="btn btn-info">Show</a>
 
-                                        <form action="<?php echo Uri::create('admin/product/delete/' . ($product['id'] ?? $product->id)); ?>" 
-                                              method="POST" 
-                                              class="d-inline"
-                                              onsubmit="return confirm('Are you sure?')">
-                                            <input type="hidden" name="<?= \Config::get('security.csrf_token_key') ?>" value="<?= \Security::fetch_token() ?>">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                            <form action="<?php echo Uri::create('admin/product/delete/' . ($product['id'] ?? $product->id)); ?>" 
+                                                  method="POST" 
+                                                  class="d-inline"
+                                                  onsubmit="return confirm('Are you sure?')">
+                                                <input type="hidden" name="<?= \Config::get('security.csrf_token_key') ?>" value="<?= \Security::fetch_token() ?>">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -86,6 +88,11 @@
                             <?php endif; ?>
                         </tbody>
                     </table>
+
+                    <!-- Pagination -->
+                    <?php if (isset($pagination) && !empty($pagination)): ?>
+                        <?php echo $pagination; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

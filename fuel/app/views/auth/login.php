@@ -103,12 +103,12 @@
                             </div>
                         <?php endif; ?>
 
-                        <?php if (Session::get_flash('success')): ?>
+                        <!-- <?php if (Session::get_flash('success')): ?>
                             <div class="alert alert-success" role="alert">
                                 <i class="fas fa-check-circle me-2"></i>
                                 <?php echo Session::get_flash('success'); ?>
                             </div>
-                        <?php endif; ?>
+                        <?php endif; ?> -->
 
                         <?php 
                         $login_url = Uri::create('auth/login');

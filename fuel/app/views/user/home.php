@@ -5,7 +5,7 @@
             <h1>Chào mừng, <?= e($current_user['name']) ?>!</h1>
             <p>Chào mừng bạn đến với Shop Demo. Hãy khám phá các sản phẩm tuyệt vời của chúng tôi.</p>
         </div>
-        <div class="welcome-avatar">
+        <!-- <div class="welcome-avatar">
             <?php if (!empty($profile['avt'])): ?>
                 <img src="<?= Uri::base(false) . $profile['avt'] ?>" alt="Avatar">
             <?php else: ?>
@@ -13,44 +13,11 @@
                     <i class="fas fa-user"></i>
                 </div>
             <?php endif; ?>
-        </div>
+        </div> -->
     </div>
 </div>
 
 <!-- Stats Section -->
-<div class="stats-section">
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="fas fa-shopping-bag"></i>
-            </div>
-            <div class="stat-info">
-                <h3><?= $stats['total_orders'] ?></h3>
-                <p>Đơn hàng</p>
-            </div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="fas fa-money-bill-wave"></i>
-            </div>
-            <div class="stat-info">
-                <h3><?= number_format($stats['total_spent']) ?> VNĐ</h3>
-                <p>Tổng chi tiêu</p>
-            </div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="fas fa-shopping-cart"></i>
-            </div>
-            <div class="stat-info">
-                <h3><?= $stats['cart_items'] ?></h3>
-                <p>Giỏ hàng</p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Quick Actions -->
 <div class="actions-section">

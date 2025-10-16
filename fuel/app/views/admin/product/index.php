@@ -35,11 +35,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($products) && count($products) > 0):  ?>
+                            <?php if (!empty($products) && count($products) > 0): ?>
                                 <?php foreach ($products as $product): ?>
                                 <tr>
-                                    <td><?php echo e($product['id'] ?? $product->id) ?></td>
-                                    <td><?php echo e($product['name'] ?? $product->name) ?></td>
+                                    <td><?= e($product['id'] ?? $product->id) ?></td>
+                                    <td><?= e($product['name'] ?? $product->name) ?></td>
                                     <td>
                                         <?php 
                                         $category = Service_Category::getById($product['idCategory'] ?? $product->idCategory);
@@ -65,16 +65,16 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex">
-                                            <a href="<?php echo Uri::create('admin/product/edit/' . $product['id']) ; ?>" 
+                                            <a href="<?php echo Uri::create('admin/product/edit/' . ($product['id'] ?? $product->id)); ?>" 
                                                class="btn btn-success">Edit</a>
-                                            <a href="<?php echo Uri::create('admin/product/show/' . $product['id']); ?>" 
+                                            <a href="<?php echo Uri::create('admin/product/show/' . ($product['id'] ?? $product->id)); ?>" 
                                                class="btn btn-info">Show</a>
 
-                                            <form action="<?php echo Uri::create('admin/product/delete/' . $product['id']); ?>" 
+                                            <form action="<?php echo Uri::create('admin/product/delete/' . ($product['id'] ?? $product->id)); ?>" 
                                                   method="POST" 
                                                   class="d-inline"
                                                   onsubmit="return confirm('Are you sure?')">
-                                                <input type="hidden" name="<?php echo \Config::get('security.csrf_token_key') ?>" value="<?php echo \Security::fetch_token() ?>">
+                                                <input type="hidden" name="<?= \Config::get('security.csrf_token_key') ?>" value="<?= \Security::fetch_token() ?>">
                                                 <button type="submit" class="btn btn-danger">Delete</button>
                                             </form>
                                         </div>
@@ -93,7 +93,6 @@
                     <?php if (isset($pagination) && !empty($pagination)): ?>
                         <?php echo Pagination::instance('product_pagination')->render(); ?>
                     <?php endif; ?>
-                    
                 </div>
             </div>
         </div>

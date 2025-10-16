@@ -113,52 +113,6 @@
           background-color: #f5f5f5;
           border-color: #ddd;
       }
-      
-      /* Đảm bảo pagination hiển thị đúng */
-      .pagination {
-          display: block !important;
-          text-align: center !important;
-          margin: 20px 0 !important;
-      }
-      
-      .pagination span {
-          display: inline-block !important;
-          margin: 0 2px !important;
-      }
-      
-      .pagination a {
-          display: inline-block !important;
-          padding: 8px 12px !important;
-          text-decoration: none !important;
-          color: #337ab7 !important;
-          background-color: #fff !important;
-          border: 1px solid #ddd !important;
-          border-radius: 4px !important;
-          transition: all 0.3s ease !important;
-          min-width: 40px !important;
-          text-align: center !important;
-      }
-      
-      .pagination a:hover {
-          color: #23527c !important;
-          background-color: #f5f5f5 !important;
-          border-color: #adadad !important;
-      }
-      
-      .pagination .active a {
-          color: #fff !important;
-          background-color: #337ab7 !important;
-          border-color: #337ab7 !important;
-          font-weight: bold !important;
-      }
-      
-      .pagination .previous-inactive a,
-      .pagination .next-inactive a {
-          color: #999 !important;
-          background-color: #f5f5f5 !important;
-          border-color: #ddd !important;
-          cursor: not-allowed !important;
-      }
       </style>
 </head>
 

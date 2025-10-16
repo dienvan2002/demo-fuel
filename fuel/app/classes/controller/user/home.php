@@ -25,7 +25,6 @@ class Controller_User_Home extends Controller_Base
         // Merge user info với profile để có đầy đủ thông tin
         $user_info = array_merge($current_user, $profile);
         
-        // Lấy thống kê cơ bản (có thể mở rộng sau)
         $stats = [
             'total_orders' => 0, 
             'total_spent' => 0,  

@@ -32,7 +32,7 @@
                 <button class="btn btn-primary add-to-cart-btn" data-product-id="<?= $product['id'] ?>">
                     <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
                 </button>
-                <a href="<?= Uri::create('products') ?>" class="btn btn-secondary">
+                <a href="<?= Uri::create('user/products') ?>" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Quay lại
                 </a>
             </div>
@@ -80,7 +80,7 @@
                 <div class="related-info">
                     <h4><?= e($related['name']) ?></h4>
                     <div class="related-price"><?= number_format($related['price']) ?> VNĐ</div>
-                    <a href="<?= Uri::create('products/detail/' . $related['id']) ?>" class="btn btn-sm btn-primary">
+                    <a href="<?= Uri::create('user/products/detail/' . $related['id']) ?>" class="btn btn-sm btn-primary">
                         Xem chi tiết
                     </a>
                 </div>

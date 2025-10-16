@@ -204,37 +204,102 @@ class Service_Auth
 		return null;
 	}
 	public static function sendmail($email1, $name, $otp){
-		 $email = \Email::forge(
+		// Tạo mã 6 số ngẫu nhiên
+		$code = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+		
+		// Lưu mã vào Session với thời gian hết hạn (15 phút)
+		\Session::set('otp_code', $code);
+		\Session::set('otp_email', $email1);
+		\Session::set('otp_expires', time() + (15 * 60)); // 15 phút
+		
+		// Gửi email với mã
+		$email = \Email::forge(
             array(
                 'driver' => 'smtp',
             )
         );
         $email->from('nguyenduydien02@gmail.com', 'Nguyễn Duy Diện');
         $email->to($email1, $name);
-        $email->subject('Verification Code');
-        $email->body('Mã xác nhận của bạn là: '. $otp);
+        $email->subject('Mã xác thực đăng ký tài khoản');
+        $email->body('Xin chào ' . $name . ',
+
+				Mã xác thực của bạn là: ' . $code . '
+
+				Mã này có hiệu lực trong 15 phút.
+				Vui lòng không chia sẻ mã này với ai khác.
+
+				Trân trọng,
+				Demo Fuel Team');
         try {
             $email->send();
 			return array(
 				'status' => 'success',
-				'message' => 'Email sent successfully'
+				'message' => 'Mã xác thực đã được gửi đến email của bạn'
 			);
         } catch (\EmailValidationFailedException $e) {
-            echo $e->getMessage();
-            echo 'Lỗi định dạng email';
 			return array(
 				'status' => 'error',
 				'message' => 'Lỗi định dạng email'
 			);
         } catch (\EmailSendingFailedException $e) {
-            echo $e->getMessage();
-            echo 'Không gửi được email';
 			return array( 
 				'status'=> 'error',
-				'message'=> 'Gửi thất bại'
+				'message'=> 'Không thể gửi email. Vui lòng thử lại sau.'
 				);
         } 
-    	
+	}
+	
+	/**
+	 * Xác thực mã OTP từ Session
+	 */
+	public static function verify_otp($email, $code)
+	{
+		if (empty($email) || empty($code)) {
+			return array(
+				'status' => 'error',
+				'message' => 'Vui lòng nhập đầy đủ thông tin'
+			);
+		}
+		
+		// Kiểm tra email có khớp không
+		$session_email = \Session::get('otp_email');
+		if ($session_email !== $email) {
+			return array(
+				'status' => 'error',
+				'message' => 'Email không khớp'
+			);
+		}
+		
+		// Kiểm tra mã có hết hạn không
+		$expires = \Session::get('otp_expires');
+		if (time() > $expires) {
+			// Xóa session cũ
+			\Session::delete('otp_code');
+			\Session::delete('otp_email');
+			\Session::delete('otp_expires');
+			return array(
+				'status' => 'error',
+				'message' => 'Mã xác thực đã hết hạn'
+			);
+		}
+		
+		// Kiểm tra mã có đúng không
+		$session_code = \Session::get('otp_code');
+		if ($session_code === $code) {
+			// Xóa session sau khi verify thành công
+			\Session::delete('otp_code');
+			\Session::delete('otp_email');
+			\Session::delete('otp_expires');
+			return array(
+				'status' => 'success',
+				'message' => 'Xác thực thành công'
+			);
+		} else {
+			return array(
+				'status' => 'error',
+				'message' => 'Mã xác thực không đúng'
+			);
+		}
 	}
 
 	/**

@@ -5,6 +5,26 @@
   box-sizing: border-box;
 }
 
+/* Card Header Layout */
+.card-header.d-flex {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-header h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.card-header .btn {
+    white-space: nowrap;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, sans-serif;
   background-color: #f5f5f5;

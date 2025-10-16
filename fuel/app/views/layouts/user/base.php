@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="assets/css/user/base.css" rel="stylesheet">
+    <link href="/assets/css/user/base.css" rel="stylesheet">
 
 <body>
     <!-- Header -->
@@ -66,11 +66,11 @@
                     <div class="sidebar-section">
                         <h3>Danh mục</h3>
                         <ul class="category-list ">
-                            <li><a href="<?= Uri::create('products') ?>" class="category-link">Tất cả</a></li>
+                            <li><a href="<?= Uri::create('/user/products') ?>" class="category-link">Tất cả</a></li>
                             <?php if (isset($categories)): ?>
                                 <?php foreach ($categories as $id => $name): ?>
                                     <li>
-                                        <a href="<?= Uri::create('products?category=' . $id) ?>"
+                                        <a href="<?= Uri::create('/user/products?category=' . $id) ?>"
                                             class="category-link <?= (isset($current_category) && $current_category == $id) ? 'active' : '' ?>">
                                             <?= e($name) ?>
                                         </a>

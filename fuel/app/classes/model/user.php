@@ -1,26 +1,16 @@
 <?php
 
-/**
- * Model_User - Wrapper cho SimpleAuth User
- * Sử dụng SimpleAuth hoàn toàn, không extend ORM
- */
+
 class Model_User
 {
 
 
-	/**
-	 * Kiểm tra user có phải admin không (dựa trên group)
-	 * Theo chuẩn FuelPHP
-	 */
+
 	public static function is_admin()
 	{
 		return Auth::member(100); // Group 100 = Administrators
 	}
 
-	/**
-	 * Lấy thông tin user hiện tại từ SimpleAuth
-	 * Theo chuẩn FuelPHP
-	 */
 	public static function get_current_user()
 	{
 		// Lấy user ID từ Auth driver
@@ -40,9 +30,7 @@ class Model_User
 		return null;
 	}
 
-	/**
-	 * Tạo user mới với SimpleAuth theo chuẩn FuelPHP
-	 */
+
 	public static function create_user($data)
 	{
 		// Validate dữ liệu

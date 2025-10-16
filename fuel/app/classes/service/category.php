@@ -188,7 +188,7 @@ class Service_Category
       public static function getDropdown()
       {
             $categories = Model_Category::find('all', array(
-                  'order_by' => array('name' => 'asc')
+                  'order_by' => array('id' => 'asc')
             ));
             
             $options = array();
@@ -219,7 +219,7 @@ class Service_Category
       /**
        * Lấy danh sách categories với pagination
        */
-      public static function getPaginated($page = 1, $per_page = 10, $filters = array())
+      public static function getPaginated($page = 1, $per_page = 1, $filters = array())
       {
             // Cấu hình pagination
             $config = array(

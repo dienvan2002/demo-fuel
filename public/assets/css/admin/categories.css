@@ -165,8 +165,7 @@ body {
 .table td:last-child {
     white-space: nowrap !important;
     text-align: center !important;
-    background-color: #ffeb3b !important; /* Màu vàng rõ ràng để test */
-    border: 3px solid #ff5722 !important; /* Border đỏ để test */
+ 
 }
 
 .table td:last-child .d-flex {

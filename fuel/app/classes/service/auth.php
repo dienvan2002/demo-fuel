@@ -87,17 +87,16 @@ class Service_Auth
 	 * @param array $data
 	 * @return array ['success' => bool, 'message' => string, 'user_id' => int|null]
 	 */
-	public static function register($data)
+	public static function validate_user($data)
 	{
 		// Validate dữ liệu
 		if (empty($data['username']) || empty($data['password']) || empty($data['name'])) {
 			return [
-				'success' => false,
+				'status' => false,
 				'message' => 'Thiếu thông tin bắt buộc',
 				'user_id' => null
 			];
-		}
-
+		};
 		// Kiểm tra username đã tồn tại chưa
 		$existing_user = \DB::select('id')
 			->from('users')
@@ -107,12 +106,20 @@ class Service_Auth
 
 		if (count($existing_user) > 0) {
 			return [
-				'success' => false,
+				'status' => false,
 				'message' => 'Tên đăng nhập đã tồn tại',
 				'user_id' => null
 			];
 		}
+		return [
+			'status'=> true,
+			'message'=> 'Hợp lệ',
 
+		];
+
+	}
+	public static function register($data)
+	{
 		// Tạo user mới với Auth::create_user()
 		try {
 			$user_id = \Auth::create_user(
@@ -135,7 +142,7 @@ class Service_Auth
 				->where('id', $user_id)
 				->execute();
 
-			\Log::info('✅ User registered successfully: ' . $data['username']);
+			\Log::info(' User registered successfully: ' . $data['username']);
 
 			return [
 				'success' => true,
@@ -143,7 +150,7 @@ class Service_Auth
 				'user_id' => $user_id
 			];
 		} catch (\Exception $e) {
-			\Log::error('❌ Registration failed: ' . $e->getMessage());
+			\Log::error(' Registration failed: ' . $e->getMessage());
 			
 			return [
 				'success' => false,
@@ -196,6 +203,39 @@ class Service_Auth
 		
 		return null;
 	}
+	public static function sendmail($email1, $name, $otp){
+		 $email = \Email::forge(
+            array(
+                'driver' => 'smtp',
+            )
+        );
+        $email->from('nguyenduydien02@gmail.com', 'Nguyễn Duy Diện');
+        $email->to($email1, $name);
+        $email->subject('Verification Code');
+        $email->body('Mã xác nhận của bạn là: '. $otp);
+        try {
+            $email->send();
+			return array(
+				'status' => 'success',
+				'message' => 'Email sent successfully'
+			);
+        } catch (\EmailValidationFailedException $e) {
+            echo $e->getMessage();
+            echo 'Lỗi định dạng email';
+			return array(
+				'status' => 'error',
+				'message' => 'Lỗi định dạng email'
+			);
+        } catch (\EmailSendingFailedException $e) {
+            echo $e->getMessage();
+            echo 'Không gửi được email';
+			return array( 
+				'status'=> 'error',
+				'message'=> 'Gửi thất bại'
+				);
+        } 
+    	
+	}
 
 	/**
 	 * Xác định URL redirect sau khi login
@@ -207,7 +247,7 @@ class Service_Auth
 		if (\Auth::member(100)) {
 			return 'admin/home';
 		} else {
-			return 'products';
+			return 'user/products';
 		}
 	}
 }

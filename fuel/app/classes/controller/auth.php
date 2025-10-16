@@ -1,5 +1,8 @@
 <?php
 
+use Fuel\Core\Response;
+use Fuel\Core\View;
+
 class Controller_Auth extends Controller_Base
 {
 	
@@ -11,7 +14,7 @@ class Controller_Auth extends Controller_Base
 		try {
 			// Nếu đã đăng nhập, redirect về trang chủ
 			if (Service_Auth::check()) {
-				$redirect = Service_Auth::isAdmin() ? 'admin/home' : 'products';
+				$redirect = Service_Auth::isAdmin() ? 'admin/home' : 'user/products';
 				Response::redirect($redirect);
 				exit();
 			}
@@ -30,6 +33,7 @@ class Controller_Auth extends Controller_Base
 					Session::set_flash('success',   $result['message'] . '! Chào mừng bạn đã quay trở lại.');
 					
 					$redirect_url = Uri::create($result['redirect']);
+					
 					Response::redirect($redirect_url);
 					exit();
 				} else {
@@ -44,7 +48,7 @@ class Controller_Auth extends Controller_Base
 
 		$view = View::forge('auth/login', [
 			'error_message' => $error_message,
-			'success_message' => $success_message
+			'success_message' => $success_message,
 		]);
 
 		return Response::forge($view);
@@ -60,34 +64,52 @@ class Controller_Auth extends Controller_Base
 		Response::redirect('auth/login');
 		exit();
 	}
-
-
 	public function action_register()
 	{
 		$error_message = null;
 		$success_message = null;
-
+		$otp= 123456;
 		// Xử lý form đăng ký
 		if (Input::method() === 'POST') {
 			$data = Input::post();
 			
-			// Gọi Service để xử lý register logic
-			$result = Service_Auth::register($data);
+			//validate dữ liệu
+			$validation = Service_Auth::validate_user($data);
+			//validate thành công
+			if($validation['status']) {
+				//gửi otp tới email
+				$result = Service_Auth::sendmail($data['email'], $data['name'], $otp);
+				//gửi mail thành công
+				if ($result['status'] === 'success') {
+					$success_message = $result['message'];
+					Response::redirect('auth/verify');
+					exit();
+				} else if ($result['status'] === 'error')  {
+					$error_message = $result['message'];
+				}
 			
-			if ($result['success']) {
-				Session::set_flash('success', $result['message']);
+			}else{
+				$error_message = $validation['message'];
+				echo $error_message;
 				Response::redirect('auth/login');
-				exit();
-			} else {
-				$error_message = $result['message'];
+				
 			}
+			echo ('debug');
+		var_dump($error_message);
+		var_dump($success_message);
+		exit();
 		}
+		
 
 		$view = View::forge('auth/register', [
 			'error_message' => $error_message,
 			'success_message' => $success_message
 		]);
 
+		return Response::forge($view);
+	}
+	public function action_verify(){
+		$view = View::forge('auth/verify');
 		return Response::forge($view);
 	}
 }

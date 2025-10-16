@@ -2,32 +2,22 @@
 
 use Fuel\Core\Pagination;
 
-/**
- * Service_User - Business Logic cho User Management
- * Chứa tất cả logic xử lý nghiệp vụ liên quan đến User
- */
 class Service_User
 {
-    /**
-     * Validate dữ liệu user
-     */
     public static function validate($data, $is_update = false)
     {
         $errors = [];
 
-        // Validate username (chỉ khi tạo mới hoặc có thay đổi)
         if (!$is_update || isset($data['username'])) {
             if (empty($data['username'])) {
                 $errors[] = 'Tên đăng nhập không được để trống';
             }
         }
 
-        // Validate name (luôn cần thiết)
         if (empty($data['name'])) {
             $errors[] = 'Tên người dùng không được để trống';
         }
 
-        // Validate email (chỉ khi tạo mới hoặc có thay đổi)
         if (!$is_update || isset($data['email'])) {
             if (empty($data['email'])) {
                 $errors[] = 'Email không được để trống';
@@ -35,8 +25,6 @@ class Service_User
                 $errors[] = 'Email không hợp lệ';
             }
         }
-
-        // Validate password chỉ khi tạo mới hoặc có password
         if (isset($data['password']) && !empty($data['password'])) {
             if (strlen($data['password']) < 6) {
                 $errors[] = 'Mật khẩu phải có ít nhất 6 ký tự';
@@ -46,16 +34,12 @@ class Service_User
         return $errors;
     }
 
-    /**
-     * Tạo user mới
-     */
     public static function create($data)
     {
-        $errors = self::validate($data, false); // false = create mode
+        $errors = self::validate($data, false); 
         if (!empty($errors)) {
             return ['success' => false, 'errors' => $errors];
         }
-
         // Kiểm tra username đã tồn tại chưa
         $existing = DB::select('id')
             ->from('users')
@@ -69,7 +53,6 @@ class Service_User
                 'errors' => ['Tên đăng nhập đã tồn tại']
             ];
         }
-
         // Kiểm tra email đã tồn tại chưa
         $existing_email = DB::select('id')
             ->from('users')
@@ -83,7 +66,6 @@ class Service_User
                 'errors' => ['Email đã tồn tại']
             ];
         }
-
         try {
             // Tạo user với Auth::create_user()
             $user_id = Auth::create_user(
@@ -93,14 +75,12 @@ class Service_User
                 isset($data['group']) && $data['group'] == 100 ? 100 : 1 // Admin = 100, User = 1
             );
 
-            // Lưu thông tin bổ sung vào profile_fields
             $profile_data = array(
                 'name' => $data['name'],
                 'phone' => isset($data['phone']) ? $data['phone'] : '',
                 'gender' => isset($data['gender']) ? (int)$data['gender'] : 0,
                 'avt' => isset($data['avt']) ? $data['avt'] : '',
             );
-
             DB::update('users')
                 ->set(array('profile_fields' => serialize($profile_data)))
                 ->where('id', $user_id)
@@ -119,9 +99,6 @@ class Service_User
         }
     }
 
-    /**
-     * Cập nhật thông tin user
-     */
     public static function update($id, $data)
     {
         $user = self::getById($id);
@@ -131,8 +108,6 @@ class Service_User
                 'errors' => ['Không tìm thấy người dùng']
             ];
         }
-
-        // Chỉ validate username và email nếu có thay đổi
         $validate_data = $data;
         if ($data['username'] == $user['username']) {
             unset($validate_data['username']);
@@ -145,7 +120,6 @@ class Service_User
         if (!empty($errors)) {
             return ['success' => false, 'errors' => $errors];
         }
-
         // Kiểm tra username trùng (nếu có thay đổi)
         if (isset($data['username'])) {
             $existing = DB::select('id')
@@ -162,7 +136,6 @@ class Service_User
                 ];
             }
         }
-
         // Kiểm tra email trùng (nếu có thay đổi)
         if (isset($data['email'])) {
             $existing_email = DB::select('id')
@@ -179,7 +152,6 @@ class Service_User
                 ];
             }
         }
-
         try {
             // Cập nhật thông tin cơ bản
             $update_data = [];
@@ -201,7 +173,6 @@ class Service_User
                 'gender' => isset($data['gender']) ? (int)$data['gender'] : 0,
                 'avt' => isset($data['avt']) ? $data['avt'] : '',
             );
-
             DB::update('users')
                 ->set(array('profile_fields' => serialize($profile_data)))
                 ->where('id', $id)
@@ -215,7 +186,6 @@ class Service_User
                     ->where('id', $id)
                     ->execute();
             }
-
             return [
                 'success' => true,
                 'message' => 'Cập nhật người dùng thành công'
@@ -228,9 +198,6 @@ class Service_User
         }
     }
 
-    /**
-     * Xóa user
-     */
     public static function delete($id)
     {
         $user = self::getById($id);
@@ -271,16 +238,13 @@ class Service_User
         }
     }
 
-    /**
-     * Lấy danh sách tất cả users
-     */
     public static function getAll($options = [])
     {
         $query = DB::select('*')->from('users');
 
         // Order by
         $order_by = isset($options['order_by']) ? $options['order_by'] : 'created_at';
-        $order_dir = isset($options['order_dir']) ? $options['order_dir'] : 'desc';
+        $order_dir = isset($options['order_dir']) ? $options['order_dir'] : 'asc';
         $query->order_by($order_by, $order_dir);
 
         // Limit
@@ -308,9 +272,6 @@ class Service_User
         return $users;
     }
 
-    /**
-     * Lấy tổng số users
-     */
     public static function getCount()
     {
         return DB::select(DB::expr('COUNT(*) as count'))
@@ -319,9 +280,7 @@ class Service_User
             ->get('count');
     }
 
-    /**
-     * Lấy danh sách users với pagination
-     */
+
     public static function getPaginated($page = 1, $per_page = 10, $options = array())
     {
         // Cấu hình pagination
@@ -347,9 +306,7 @@ class Service_User
         );
     }
 
-    /**
-     * Lấy thông tin user theo ID
-     */
+    
     public static function getById($id)
     {
         $user = DB::select('*')

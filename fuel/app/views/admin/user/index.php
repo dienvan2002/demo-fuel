@@ -5,7 +5,11 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>User Management</h4>
                     <div>
-                        <a href="<?php echo Uri::create('admin/user/create'); ?>" class="btn btn-primary">
+                        <a href="<?php
+
+use Fuel\Core\Pagination;
+
+ echo Uri::create('admin/user/create'); ?>" class="btn btn-primary">
                             <i class="fas fa-plus me-2"></i>Add New User
                         </a>
                     </div>
@@ -19,7 +23,7 @@
                                        name="keyword" 
                                        class="form-control me-2" 
                                        placeholder="Search by username, email, or name..."
-                                       value="<?= isset($keyword) ? e($keyword) : '' ?>">
+                                       value="<?php echo isset($keyword) ? e($keyword) : '' ?>">
                                 <button type="submit" class="btn btn-outline-secondary">
                                     <i class="fas fa-search"></i>Search
                                 </button>
@@ -52,13 +56,13 @@
                                         <td><?= e($user['name']) ?></td>
                                         <td><?= e($user['email']) ?></td>
                                         <td>
-                                            <span class="badge <?= $user['group'] == 100 ? 'bg-danger' : 'bg-primary' ?>">
+                                            <span class="badge <?php echo $user['group'] == 100 ? 'bg-danger' : 'bg-primary' ?>">
                                                 <?= e($user['group_name']) ?>
                                             </span>
                                         </td>
                                         <td><?= e($user['phone']) ?></td>
                                         <td>
-                                            <span class="badge <?= $user['gender'] == 0 ? 'bg-info' : 'bg-warning' ?>">
+                                            <span class="badge <?php echo $user['gender'] == 0 ? 'bg-info' : 'bg-warning' ?>">
                                                 <?= $user['gender'] == 0 ? 'Nam' : 'Nữ' ?>
                                             </span>
                                         </td>
@@ -79,7 +83,7 @@
                                                       method="POST" 
                                                       class="d-inline"
                                                       onsubmit="return confirm('Are you sure you want to delete this user?')">
-                                                    <input type="hidden" name="<?= \Config::get('security.csrf_token_key') ?>" value="<?= \Security::fetch_token() ?>">
+                                                    <!-- <input type="hidden" name="<?php echo \Config::get('security.csrf_token_key') ?>" value="<?php echo \Security::fetch_token() ?>"> -->
                                                     <button type="submit" class="btn btn-danger">Delete</button>
                                                 </form>
                                             </div>
@@ -97,7 +101,7 @@
 
                     <!-- Pagination -->
                     <?php if (isset($pagination) && !empty($pagination)): ?>
-                        <?php echo $pagination; ?>
+                        <?php echo Pagination::instance('user_pagination')->render() ; ?>
                     <?php endif; ?>
                 </div>
             </div>

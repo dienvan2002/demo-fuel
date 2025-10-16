@@ -166,7 +166,7 @@ class Service_Product
 
             // Order by
             $order_by = isset($options['order_by']) ? $options['order_by'] : 'created_at';
-            $order_dir = isset($options['order_dir']) ? $options['order_dir'] : 'desc';
+            $order_dir = isset($options['order_dir']) ? $options['order_dir'] : 'asc';
             $query->order_by($order_by, $order_dir);
 
             // Limit
@@ -301,6 +301,7 @@ class Service_Product
                   'limit' => $pagination->per_page,
                   'offset' => $pagination->offset
             )));
+            
 
             return array(
                   'products' => $result['products'],

@@ -36,6 +36,7 @@ return array(
 	'auth/login' => 'auth/login',
 	'auth/logout' => 'auth/logout',
 	'auth/register' => 'auth/register',
+	'auth/verify' => 'auth/verify',
 
 	/**
 	 * -------------------------------------------------------------------------

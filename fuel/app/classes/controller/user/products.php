@@ -63,7 +63,7 @@ class Controller_User_Products extends Controller_Base
                 'limit' => $limit,
                 'offset' => $offset,
                 'order_by' => 'created_at',
-                'order_dir' => 'desc'
+                'order_dir' => 'asc'
             ]);
             $products = $all_products['products'] ?? $all_products;
             $total_products = count($products);

@@ -13,10 +13,10 @@ class Controller_Admin_Product extends Controller_Base
     public function action_index()
     {
         // Kiểm tra quyền đọc sản phẩm
-        $this->require_permission('products', 'read');
+        // $this->require_permission('products', 'read');
         
         // Lấy danh sách sản phẩm với pagination từ Service
-        $result = Service_Product::getPaginated(1, 10, array(
+        $result = Service_Product::getPaginated(1,3, array(
             'order_by' => 'created_at',
             'order_dir' => 'desc',
             'admin_mode' => true
@@ -45,16 +45,13 @@ class Controller_Admin_Product extends Controller_Base
             $result = Service_Product::create(Input::post());
 
             if ($result['success']) {
-                // Tạo thành công - redirect về danh sách
                 Session::set_flash('success', $result['message']);
                 Response::redirect('admin/product');
                 exit();
             } else {
-                // Có lỗi - hiển thị lỗi
                 $error_messages = $result['errors'];
             }
         }
-
         // Lấy danh sách categories cho dropdown
         $categories = Service_Category::getDropdown();
 

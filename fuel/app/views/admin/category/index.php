@@ -31,8 +31,8 @@
                                           <?php if (!empty($categories) && count($categories) > 0): ?>
                                           <?php foreach ($categories as $category): ?>
                                           <tr>
-                                                <td><?php echo e($category['id'] ?? $category->id) ?></td>
-                                                <td><?php echo e($category['name'] ?? $category->name) ?></td>
+                                                <td><?php echo $category['id']; ?></td>
+                                                <td><?php echo $category['name']; ?></td>
 
                                                 <td class="text-center">
                                                       <div class="d-flex">
@@ -64,9 +64,8 @@
 
                               <!-- Pagination -->
                               <?php if (isset($pagination) && !empty($pagination)): ?>
-                              <?php echo $pagination; ?>
+                              <?php   echo \Pagination::instance('category_pagination')->render(); ?>
                               <?php endif; ?>
-
                         </div>
                   </div>
             </div>

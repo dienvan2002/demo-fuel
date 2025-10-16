@@ -13,7 +13,7 @@ class Controller_Admin_User extends Controller_Base
         $this->require_permission('users', 'read');
         
         // Lấy danh sách users với pagination từ Service
-        $result = Service_User::getPaginated(1, 10, array(
+        $result = Service_User::getPaginated(1, 1, array(
             'order_by' => 'created_at',
             'order_dir' => 'desc'
         ));

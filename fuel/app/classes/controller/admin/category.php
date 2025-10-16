@@ -16,10 +16,11 @@ class Controller_Admin_Category extends Controller_Base
             $this->require_permission('categories', 'read');
             
             // Lấy danh sách categories với pagination từ Service
-            $result = Service_Category::getPaginated(1, 10, array(
+            $result = Service_Category::getPaginated(1, 3, array(
                   'order_by' => 'created_at',
                   'order_dir' => 'desc'
             ));
+            // print_r($result); exit();
             
             $view = View::forge('admin/category/index', [
                   'categories' => $result['categories'],
